@@ -1,20 +1,20 @@
 package calculator;
 
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 class StringCalculatorShould {
 
-    @Test
-    void empty_string_should_return_0() {
-        StringCalculator stringCalculator = new StringCalculator();
-        assertEquals(0, stringCalculator.add(""));
-    }
+    private StringCalculator calculator;
 
-    @Test
-    void string_with_single_number_should_return_number_as_int() {
-        StringCalculator stringCalculator = new StringCalculator();
-        assertEquals(1, stringCalculator.add("1"));
-    }
+	@Before
+	public void initializer() {
+		calculator = new StringCalculator();
+	}
+	
+	@Test
+	public void empty_string_should_return_0(){
+		assertEquals(0, calculator.add(""));
+	}
 }
