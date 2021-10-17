@@ -1,38 +1,52 @@
 package calculator;
 
-class StringCalculator {
+public class StringCalculator {
 
-    private String emptyString = "";
-	
-	
-	
+	private String emptyString = "";
+	private String otherDelimiters = "//(.*)\n(.*)";
+
 	public int add(String input) {
-		String[] numbers = input.split(",");
-		
-		if (isEmpty(input)) {
+		if (input.equals(emptyString)) {
 			return 0;
 		} 
-		if(input.length()==1){
-			return toInt(input);
-		}
 		else {
-			return sum(numbers[0],numbers[1]);
+			String delimiter = ",";
+			if (input.matches(otherDelimiters)) {
+				delimiter = Character.toString(input.charAt(2));
+				input = input.substring(4);
+			}
+			String numList[] = splitNumbers(input, delimiter + "|\n");
+			return sum(numList);
 		}
-	}
-	
-	private int sum(String num1, String num2)
-	{
-		return Integer.parseInt(num1)+Integer.parseInt(num2);
 	}
 
-    private boolean isEmpty(String input)
-	{ 
-	  return input.isEmpty();
-	}
-	
 	private int toInt(String number) {
 		return Integer.parseInt(number);
 	}
 
+	private String[] splitNumbers(String numbers, String divider) {
+		return numbers.split(divider);
+	}
+
+	private int sum(String[] numbers) {
+		int total = 0;
+		String negString = emptyString;
+
+		for (String number : numbers) {
+			if (toInt(number) < 0) {
+				if (negString.equals(emptyString))
+					negString = number;
+				else
+					negString += ("," + number);
+			}
+			if (toInt(number) <= 1000)
+				total += toInt(number);
+		}
+
+		if (!negString.equals(emptyString)) {
+			throw new IllegalArgumentException("negatives not allowed: " + negString);
+		}
+		return total;
+	}
 
 }
