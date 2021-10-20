@@ -15,7 +15,7 @@ public class StringCalculator {
 				delimiter = Character.toString(input.charAt(2));
 				input = input.substring(4);
 			}
-			String numList[] = splitNumbers(input, delimiter + "|\n");
+			String numList[] = splitNumbers(input, delimiter + "|;|\n");
 			return sum(numList);
 		}
 	}
@@ -28,6 +28,21 @@ public class StringCalculator {
 		return numbers.split(divider);
 	}
 
+//	private int sum(String[] numbers) {
+//		int total = 0;
+//		String negString = emptyString;
+//
+//		for (String number : numbers) {
+//			if (toInt(number) < 0) {
+//				if (negString.equals(emptyString))
+//					negString = number;
+//				else
+//					negString += ("," + number);
+//			}
+//			if (toInt(number) <= 1000)
+//				total += toInt(number);
+//		}
+	
 	private int sum(String[] numbers) {
 		int total = 0;
 		String negString = emptyString;
@@ -39,7 +54,9 @@ public class StringCalculator {
 				else
 					negString += ("," + number);
 			}
-			if (toInt(number) <= 1000)
+			if(!(toInt(number)<10000 && toInt(number)>1000))
+				continue;
+			else if (toInt(number) <= 1000 )
 				total += toInt(number);
 		}
 
