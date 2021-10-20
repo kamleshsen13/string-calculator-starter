@@ -31,19 +31,11 @@ public class StringCalculatorShould {
 	@Test
 	public void three_numbers_comma_delimited_should_be_summed() {
 		assertEquals(6, calculator.add("1,2,3"));
-
 	}
 
 	@Test
 	public void numbers_newline_delimited_should_be_summed() {
 		assertEquals(6, calculator.add("1\n2,3"));
-	}
-	
-	@Test
-	public void numbers_between_1000_10000() {
-		assertEquals(11000, calculator.add("//[;]\n1000;2000;3000;10000"));
-		assertEquals(11000, calculator.add("1000;2000;3000;10000"));
-
 	}
 
 	@Test
@@ -71,5 +63,13 @@ public class StringCalculatorShould {
 	@Test
 	public void support_different_delimiters() {
 		assertEquals(3, calculator.add("//;\n1;2"));
+	}
+	
+	@Test
+	public void numbers_between_1000_10000() {
+//		assertEquals(11000, calculator.add("//[;]\n1000;2000;3000;10000"));
+		assertEquals(6, calculator.add("1,2,9999,3"));
+		assertEquals(11000, calculator.add("1000;2000;3000;10000"));
+
 	}
 }

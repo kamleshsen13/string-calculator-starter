@@ -15,7 +15,7 @@ public class StringCalculator {
 				delimiter = Character.toString(input.charAt(2));
 				input = input.substring(4);
 			}
-			String numList[] = splitNumbers(input, delimiter + "|;|\n");
+			String numList[] = splitNumbers(input, delimiter+ "|;|\n");
 			return sum(numList);
 		}
 	}
@@ -28,6 +28,31 @@ public class StringCalculator {
 		return numbers.split(divider);
 	}
 
+	
+	private int sum(String[] numbers) {
+		int total = 0;
+		String negString = emptyString;
+
+		for (String number : numbers) {
+			if (toInt(number) < 0) {
+				if (negString.equals(emptyString))
+					negString = number;
+				else
+					negString += ("," + number);
+			}
+			if (toInt(number) >1000 && toInt(number) <10000)
+				continue;
+			else 
+				total += toInt(number);
+		}
+
+		if (!negString.equals(emptyString)) {
+			throw new IllegalArgumentException("negatives not allowed: " + negString);
+		}
+		return total;
+	}
+	
+	
 //	private int sum(String[] numbers) {
 //		int total = 0;
 //		String negString = emptyString;
@@ -42,28 +67,11 @@ public class StringCalculator {
 //			if (toInt(number) <= 1000)
 //				total += toInt(number);
 //		}
-	
-	private int sum(String[] numbers) {
-		int total = 0;
-		String negString = emptyString;
-
-		for (String number : numbers) {
-			if (toInt(number) < 0) {
-				if (negString.equals(emptyString))
-					negString = number;
-				else
-					negString += ("," + number);
-			}
-			if(!(toInt(number)<10000 && toInt(number)>1000))
-				continue;
-			else if (toInt(number) <= 1000 )
-				total += toInt(number);
-		}
-
-		if (!negString.equals(emptyString)) {
-			throw new IllegalArgumentException("negatives not allowed: " + negString);
-		}
-		return total;
-	}
+//
+//		if (!negString.equals(emptyString)) {
+//			throw new IllegalArgumentException("negatives not allowed: " + negString);
+//		}
+//		return total;
+//	}
 
 }
